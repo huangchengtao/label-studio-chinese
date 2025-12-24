@@ -129,29 +129,16 @@ ENV LS_DIR=/label-studio \
 
 WORKDIR $LS_DIR
 
-## install prerequisites for app
-# RUN --mount=type=cache,target="/var/cache/apt",sharing=locked \
-#     --mount=type=cache,target="/var/lib/apt/lists",sharing=locked \
-#     set -eux; \
-#     apt-get update; \
-#     apt-get upgrade -y; \
-#     apt-get install --no-install-recommends -y libexpat1 libgl1-mesa-glx libglib2.0-0 \
-#         gnupg2 curl; \
-#     apt-get autoremove -y
+# install prerequisites for app
 RUN --mount=type=cache,target="/var/cache/apt",sharing=locked \
     --mount=type=cache,target="/var/lib/apt/lists",sharing=locked \
     set -eux; \
-    # 只更新源，不升级系统
-    apt-get update && \
-    # 直接安装所需包
-    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
-        ca-certificates \
-        libexpat1 \
-        libgl1-mesa-glx \
-        libglib2.0-0 \
-        gnupg2 \
-        curl \
-    && apt-get clean
+    apt-get update; \
+    apt-get upgrade -y; \
+    apt-get install --no-install-recommends -y libexpat1 libgl1-mesa-glx libglib2.0-0 \
+        gnupg2 curl; \
+    apt-get autoremove -y
+
 
 # install nginx
 RUN --mount=type=cache,target="/var/cache/apt",sharing=locked \
