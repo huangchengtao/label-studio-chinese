@@ -32,7 +32,7 @@ RUN yarn config set registry https://registry.npmjs.org/
 RUN yarn config set network-timeout 1200000 # HTTP timeout used when downloading packages, set to 20 minutes
 
 COPY web/package.json .
-COPY web/yarn.lock .
+# COPY web/yarn.lock .
 COPY web/tools tools
 RUN --mount=type=cache,target=${YARN_CACHE_FOLDER},sharing=locked \
     --mount=type=cache,target=${NX_CACHE_DIRECTORY},sharing=locked \
