@@ -130,9 +130,22 @@ ENV LS_DIR=/label-studio \
 WORKDIR $LS_DIR
 
 # install prerequisites for app
+# RUN --mount=type=cache,target="/var/cache/apt",sharing=locked \
+#     --mount=type=cache,target="/var/lib/apt/lists",sharing=locked \
+#     set -eux; \
+#     apt-get update; \
+#     apt-get upgrade -y; \
+#     apt-get install --no-install-recommends -y libexpat1 libgl1-mesa-glx libglib2.0-0 \
+#         gnupg2 curl; \
+#     apt-get autoremove -y
 RUN --mount=type=cache,target="/var/cache/apt",sharing=locked \
     --mount=type=cache,target="/var/lib/apt/lists",sharing=locked \
     set -eux; \
+    # 备份原有源
+    cp /etc/apt/sources.list /etc/apt/sources.list.bak; \
+    # 使用阿里云或清华源（Debian）
+    sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list; \
+    sed -i 's/security.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list; \
     apt-get update; \
     apt-get upgrade -y; \
     apt-get install --no-install-recommends -y libexpat1 libgl1-mesa-glx libglib2.0-0 \
