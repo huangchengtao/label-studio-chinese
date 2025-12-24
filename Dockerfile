@@ -142,7 +142,7 @@ RUN --mount=type=cache,target="/var/cache/apt",sharing=locked \
     libgl1 \
     libglib2.0-0 \
     gnupg2 \
-    curl;
+    curl; \
     apt-get autoremove -y
 
 
