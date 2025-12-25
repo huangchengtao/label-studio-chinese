@@ -2,11 +2,11 @@
 name: Build and Push Docker Image to Aliyun
 
 # 触发条件：推送到main分支时触发
-on:
-  push:
-    branches: [ main ]
-  # 也可以手动触发
-  workflow_dispatch:
+# on:
+#   push:
+#     branches: [ main ]
+#   # 也可以手动触发
+#   workflow_dispatch:
 
 # 环境变量定义
 env:
